@@ -8,12 +8,11 @@ class App extends Component {
   onFormSubmit = event => {
     event.preventDefault();
     const userOption = event.target.elements.option.value;
-    if (userOption) {
+    userOption &&
       this.setState(({ option }) => ({
         option: [...option, { id: this.onProvideKey(), task: userOption }]
       }));
-      event.target.elements.option.value = ``;
-    }
+    event.target.elements.option.value = ``;
   };
 
   onProvideKey = () => {
@@ -60,6 +59,21 @@ class App extends Component {
       editToggle: false,
       editValue: ``
     };
+  }
+
+  componentDidMount() {
+    try {
+      const data = localStorage.getItem(`option`);
+      const option = JSON.parse(data);
+      option && this.setState({ option });
+    } catch (e) {
+      console.error(`แอบเออเร่อนะจ๊ะ แต่เธอไม่รู้บ้างเลย`);
+    }
+  }
+
+  componentDidUpdate() {
+    const data = JSON.stringify(this.state.option);
+    localStorage.setItem(`option`, data);
   }
 
   render() {

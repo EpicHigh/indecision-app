@@ -20,6 +20,7 @@ export const ListItem = ({
       <button disabled={isDisabled} onClick={removeAll}>
         Remove All
       </button>
+	    {isDisabled && <p>Add some task</p>}
       {!isDisabled && (
         <ol>
           <List
