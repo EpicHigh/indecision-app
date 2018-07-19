@@ -1,4 +1,5 @@
 import React from "react";
+import { Button, OptionText, AddOption, AddOptionInput } from "../styles/main";
 
 export const List = ({
   onEditFormSubmit,
@@ -11,16 +12,21 @@ export const List = ({
   option.map(
     ({ id, task }) =>
       editToggle && editValue === id ? (
-        <li key={id}>
-          <form onSubmit={event => onEditFormSubmit(event, id)}>
-            <input type="text" name="edit" placeholder={task} required />
-            <button type="submit">Enter</button>
-          </form>
-        </li>
+        <OptionText key={id}>
+          <AddOption onSubmit={event => onEditFormSubmit(event, id)}>
+            <AddOptionInput
+              type="text"
+              name="edit"
+              placeholder={task}
+              required
+            />
+            <Button type="submit">Enter</Button>
+          </AddOption>
+        </OptionText>
       ) : (
-        <li onDoubleClick={() => optionClicked(id)} key={id}>
+        <OptionText onDoubleClick={() => optionClicked(id)} key={id}>
           {task}
-          <button onClick={() => remove(id)}>Remove</button>
-        </li>
+          <Button onClick={() => remove(id)}>Remove</Button>
+        </OptionText>
       )
   );

@@ -1,6 +1,7 @@
 import React from "react";
 import { List } from "./List";
 import { Action } from "./Action";
+import { Option } from "../styles/main";
 
 export const ListItem = ({
   isDisabled,
@@ -19,9 +20,8 @@ export const ListItem = ({
       makeDecision={makeDecision}
       removeAll={removeAll}
     />
-    {isDisabled && <p>Add some task</p>}
     {!isDisabled && (
-      <ol>
+      <Option>
         <List
           onEditFormSubmit={onEditFormSubmit}
           option={option}
@@ -30,7 +30,7 @@ export const ListItem = ({
           remove={remove}
           editValue={editValue}
         />
-      </ol>
+      </Option>
     )}
   </div>
 );

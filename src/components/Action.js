@@ -1,12 +1,23 @@
 import React from "react";
+import {
+  BigButton,
+  WidgetHeader,
+  RemoveAllButton,
+  WidgetMessage
+} from "../styles/main";
 
-export const Action = ({isDisabled, makeDecision, removeAll}) => (
+export const Action = ({ isDisabled, makeDecision, removeAll }) => (
   <div>
-    <button disabled={isDisabled} onClick={makeDecision}>
+    <BigButton disabled={isDisabled} onClick={makeDecision}>
       What should I do first?
-    </button>
-    <button disabled={isDisabled} onClick={removeAll}>
-      Remove All
-    </button>
+    </BigButton>
+    <WidgetHeader>
+      <RemoveAllButton disabled={isDisabled} onClick={removeAll}>
+        Remove All
+      </RemoveAllButton>
+    </WidgetHeader>
+    {isDisabled && (
+      <WidgetMessage>Pleases add some task to get started</WidgetMessage>
+    )}
   </div>
 );

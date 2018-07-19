@@ -1,9 +1,13 @@
 import React, { Component } from "react";
 import uuid from "uuid";
-import { Header } from "../components/Header";
+import Header from "../components/Header";
 import { ListItem } from "../components/ListItem";
 import { AddForm } from "../components/AddForm";
 import Modal from "../components/ListModal";
+import { injectGlobal } from "styled-components";
+import { global, Container } from "../styles/main";
+
+injectGlobal`${global}`;
 
 class App extends Component {
   onFormSubmit = event => {
@@ -83,18 +87,20 @@ class App extends Component {
     return (
       <div>
         <Header optionLength={this.state.option.length} />
-        <ListItem
-          isDisabled={!(this.state.option.length > 0)}
-          makeDecision={this.onMakeDecision}
-          removeAll={this.onRemoveAll}
-          option={this.state.option}
-          optionClicked={this.onOptionWasClicked}
-          remove={this.onRemove}
-          editToggle={this.state.editToggle}
-          editValue={this.state.editValue}
-          onEditFormSubmit={this.onEditFormSubmit}
-        />
-        <AddForm submitForm={this.onFormSubmit} />
+        <Container>
+          <ListItem
+            isDisabled={!(this.state.option.length > 0)}
+            makeDecision={this.onMakeDecision}
+            removeAll={this.onRemoveAll}
+            option={this.state.option}
+            optionClicked={this.onOptionWasClicked}
+            remove={this.onRemove}
+            editToggle={this.state.editToggle}
+            editValue={this.state.editValue}
+            onEditFormSubmit={this.onEditFormSubmit}
+          />
+          <AddForm submitForm={this.onFormSubmit} />
+        </Container>
         <Modal
           doOpenModal={this.state.modalToggle}
           decision={this.state.decision}

@@ -1,16 +1,27 @@
 import React from "react";
-import Modal from "react-modal";
+import { StyledModal, ModalTitle, ModalBody, Button } from "../styles/main";
 
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    transform: "translate(50%, 50%)"
+  }
+};
 const ListModal = ({ doOpenModal, decision, doCloseModal }) => (
-  <Modal
+  <StyledModal
     isOpen={doOpenModal}
     contentLabel={"Computer chose:"}
     onRequestClose={doCloseModal}
+    closeTimeoutMS={200}
+    style={customStyles}
   >
-    <h3>A computer has chosen:</h3>
-    <p>{decision}</p>
-    <button onClick={doCloseModal}>Close</button>
-  </Modal>
+    <ModalTitle>Your computer has chosen:</ModalTitle>
+    <ModalBody>{decision}</ModalBody>
+    <Button onClick={doCloseModal}>Close</Button>
+  </StyledModal>
 );
 
 export default ListModal;
