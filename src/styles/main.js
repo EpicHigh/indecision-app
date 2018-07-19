@@ -40,15 +40,24 @@ export const HeadSubtitle = styled.p`
 export const BigButton = styled.button`
   background: #8357c5;
   border: none;
-  border-bottom: 0.6rem solid #693cad;
+  box-shadow: 0 10px #693cad;
   color: white;
   font-weight: bold;
   font-size: 1.6rem;
   margin-bottom: 1.6rem;
   padding: 1.6rem;
   width: 100%;
+  position: relative;
   &:disabled {
     opacity: 0.5;
+  }
+  &:hover {
+    box-shadow: 0 5px #693cad;
+    top: 5px;
+  }
+  &:active {
+    box-shadow: 0 0 #693cad;
+    top: 10px;
   }
 `;
 
@@ -77,22 +86,40 @@ export const AddOptionInput = styled.input`
 export const Button = styled.button`
   background: #8357c5;
   border: none;
-  border-bottom: 0.3rem solid #693cad;
   color: white;
   padding: 0.5rem;
   float: right;
+  position: relative;
+  box-shadow: 0 6px #693cad;
+  &:hover {
+    box-shadow: 0 3px #693cad;
+    top: 3px;
+  }
+  &:active {
+    box-shadow: 0 0 #693cad;
+    top: 6px;
+  }
 `;
 
 export const RemoveAllButton = styled.button`
   background: #8357c5;
   border: none;
-  border-bottom: 0.3rem solid #693cad;
+  box-shadow: 0 6px #693cad;
   color: white;
   padding: 0.5rem;
   float: right;
   font-size: 1.5rem;
+  position: relative;
   &:disabled {
     opacity: 0.5;
+  }
+  &:hover {
+    box-shadow: 0 3px #693cad;
+    top: 3px;
+  }
+  &:active {
+    box-shadow: 0 0 #693cad;
+    top: 6px;
   }
 `;
 
