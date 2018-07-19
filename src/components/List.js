@@ -7,8 +7,8 @@ export const List = ({
   remove,
   editToggle,
   editValue
-}) => {
-  return option.map(
+}) =>
+  option.map(
     ({ id, task }) =>
       editToggle && editValue === id ? (
         <li key={id}>
@@ -24,4 +24,3 @@ export const List = ({
         </li>
       )
   );
-};

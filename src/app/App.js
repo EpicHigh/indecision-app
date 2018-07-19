@@ -3,14 +3,15 @@ import uuid from "uuid";
 import { Header } from "../components/Header";
 import { ListItem } from "../components/ListItem";
 import { AddForm } from "../components/AddForm";
+import Modal from "../components/ListModal";
 
 class App extends Component {
   onFormSubmit = event => {
     event.preventDefault();
-    const userOption = event.target.elements.option.value;
-    userOption &&
+    const task = event.target.elements.option.value;
+    task &&
       this.setState(({ option }) => ({
-        option: [...option, { id: this.onProvideKey(), task: userOption }]
+        option: [...option, { id: this.onProvideKey(), task }]
       }));
     event.target.elements.option.value = ``;
   };
@@ -26,10 +27,10 @@ class App extends Component {
 
   onEditFormSubmit = (event, id) => {
     event.preventDefault();
-    const userType = event.target.elements.edit.value;
+    const task = event.target.elements.edit.value;
     this.setState({
       option: this.state.option.map(
-        task => (task.id === id ? { id, task: userType } : task)
+        option => (option.id === id ? { id, task } : option)
       ),
       editToggle: false
     });
@@ -44,22 +45,24 @@ class App extends Component {
     this.setState({ option: this.state.option.filter(task => task.id !== id) });
   };
 
+  closeModal = () => {
+    this.setState({ modalToggle: false });
+  };
+
   onMakeDecision = event => {
     event.preventDefault();
     const random = Math.floor(Math.random() * this.state.option.length);
-    alert(this.state.option[random].task);
+    const decision = this.state.option[random].task;
+    this.setState({ modalToggle: true, decision });
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      title: `Todo App`,
-      subtitle: `Put your life in the hands of a computer`,
-      option: [],
-      editToggle: false,
-      editValue: ``
-    };
-  }
+  state = {
+    option: [],
+    editToggle: false,
+    editValue: ``,
+    modalToggle: false,
+    decision: ``
+  };
 
   componentDidMount() {
     try {
@@ -79,11 +82,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Header
-          title={this.state.title}
-          subtitle={this.state.subtitle}
-          optionLength={this.state.option.length}
-        />
+        <Header optionLength={this.state.option.length} />
         <ListItem
           isDisabled={!(this.state.option.length > 0)}
           makeDecision={this.onMakeDecision}
@@ -96,6 +95,11 @@ class App extends Component {
           onEditFormSubmit={this.onEditFormSubmit}
         />
         <AddForm submitForm={this.onFormSubmit} />
+        <Modal
+          doOpenModal={this.state.modalToggle}
+          decision={this.state.decision}
+          doCloseModal={this.closeModal}
+        />
       </div>
     );
   }
