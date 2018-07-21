@@ -6,6 +6,7 @@ import { AddForm } from "../components/AddForm";
 import Modal from "../components/ListModal";
 import { injectGlobal } from "styled-components";
 import { global, Container } from "../styles/main";
+import { Action } from "../components/Action";
 
 injectGlobal`${global}`;
 
@@ -88,10 +89,13 @@ class App extends Component {
       <div>
         <Header optionLength={this.state.option.length} />
         <Container>
+	        <Action
+		        isDisabled={!(this.state.option.length > 0)}
+		        makeDecision={this.onMakeDecision}
+		        removeAll={this.onRemoveAll}
+	        />
           <ListItem
             isDisabled={!(this.state.option.length > 0)}
-            makeDecision={this.onMakeDecision}
-            removeAll={this.onRemoveAll}
             option={this.state.option}
             optionClicked={this.onOptionWasClicked}
             remove={this.onRemove}

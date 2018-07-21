@@ -8,25 +8,38 @@ export const List = ({
   remove,
   editToggle,
   editValue
-}) =>
-  option.map(
+}) => {
+  return option.map(
     ({ id, task }) =>
       editToggle && editValue === id ? (
-        <OptionText key={id}>
-          <AddOption onSubmit={event => onEditFormSubmit(event, id)}>
-            <AddOptionInput
-              type="text"
-              name="edit"
-              placeholder={task}
-              required
-            />
-            <Button type="submit">Enter</Button>
-          </AddOption>
-        </OptionText>
+        <FormElement id={id} onEditFormSubmit={onEditFormSubmit} task={task} />
       ) : (
-        <OptionText onDoubleClick={() => optionClicked(id)} key={id}>
-          {task}
-          <Button onClick={() => remove(id)}>Remove</Button>
-        </OptionText>
+        <Element
+          optionClicked={optionClicked}
+          task={task}
+          id={id}
+          remove={remove}
+        />
       )
   );
+};
+
+const Element = ({ optionClicked, task, id, remove }) => {
+  return (
+    <OptionText onDoubleClick={() => optionClicked(id)} key={id}>
+      {task}
+      <Button onClick={() => remove(id)}>Remove</Button>
+    </OptionText>
+  );
+};
+
+const FormElement = ({ id, onEditFormSubmit, task }) => {
+  return (
+    <OptionText key={id}>
+      <AddOption onSubmit={event => onEditFormSubmit(event, id)}>
+        <AddOptionInput type="text" name="edit" placeholder={task} required />
+        <Button type="submit">Enter</Button>
+      </AddOption>
+    </OptionText>
+  );
+};
